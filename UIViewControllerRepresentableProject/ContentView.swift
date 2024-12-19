@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showImagePickerView: Bool = false
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Choose and Image!")
+                .font(.largeTitle)
+                .padding()
+            Spacer()
+            Image(systemName: "photo")
+                .resizable()
+                .scaledToFit()
+                .onTapGesture {
+                    showImagePickerView = true
+                }
+                .padding()
+            Spacer()
         }
-        .padding()
+        .sheet(isPresented: $showImagePickerView) {
+            Text("This will be and Image Picker view soon!")
+        }
     }
 }
 
