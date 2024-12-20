@@ -35,7 +35,7 @@ struct ContentView: View {
             Spacer()
         }
         .sheet(isPresented: $showImagePickerView) {
-            ImagePickerView()
+            ImagePickerView(selectedImage: $selectedImage)
         }
     }
 }

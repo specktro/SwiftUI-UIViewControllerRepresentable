@@ -9,6 +9,9 @@ import SwiftUI
 import UIKit
 
 struct ImagePickerView: UIViewControllerRepresentable {
+    @Binding var selectedImage: UIImage?
+    @Environment(\.dismiss) private var dismiss
+    
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         let parent: ImagePickerView
         
@@ -17,7 +20,12 @@ struct ImagePickerView: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            print("They selected something!")
+            guard let image = info[.originalImage] as? UIImage else {
+                return
+            }
+            
+            parent.selectedImage = image
+            parent.dismiss()
         }
     }
     
