@@ -35,7 +35,7 @@ struct ContentView: View {
             Spacer()
         }
         .sheet(isPresented: $showImagePickerView) {
-            Text("This will be and Image Picker view soon!")
+            ImagePickerView()
         }
     }
 }
