@@ -9,12 +9,22 @@ import SwiftUI
 import UIKit
 
 struct ImagePickerView: UIViewControllerRepresentable {
-    class Coordinator {
-        init() {}
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: ImagePickerView
+        
+        init(parent: ImagePickerView) {
+            self.parent = parent
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            print("They selected something!")
+        }
     }
     
     func makeUIViewController(context: Context) -> UIImagePickerController {
-        return UIImagePickerController()
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = context.coordinator
+        return imagePickerController
     }
     
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
@@ -22,6 +32,6 @@ struct ImagePickerView: UIViewControllerRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        return Coordinator(parent: self)
     }
 }
