@@ -9,13 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showImagePickerView: Bool = false
+    @State private var selectedImage: UIImage?
+    
+    var imageView: Image {
+        guard let selectedImage = selectedImage else {
+            return Image(systemName: "photo")
+        }
+        
+        return Image(uiImage: selectedImage)
+    }
+    
     var body: some View {
         VStack {
             Text("Choose and Image!")
                 .font(.largeTitle)
                 .padding()
             Spacer()
-            Image(systemName: "photo")
+            imageView
                 .resizable()
                 .scaledToFit()
                 .onTapGesture {
